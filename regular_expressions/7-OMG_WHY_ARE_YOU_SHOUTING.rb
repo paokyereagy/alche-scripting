@@ -1,16 +1,17 @@
 #!/usr/bin/env ruby
+input = ARGV.join(" ")
 
-input = ARGV[0]
-
-if input.nil?
-  puts "Usage: ruby script.rb <string>"
+if input.empty?
+  puts "Usage: ruby script.rb <string with words>"
   exit
 end
 
-regex = /^[A-Z]+$/
+regex = /\b[A-Z]+\b/
 
-if input.match?(regex)
-  puts "#{input}"
+matches = input.scan(regex)
+
+if matches.any?
+  puts "#{matches.size}"
 else
   puts ""
 end
