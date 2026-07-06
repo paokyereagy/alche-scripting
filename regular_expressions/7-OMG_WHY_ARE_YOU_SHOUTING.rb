@@ -12,6 +12,7 @@ matches = input.scan(regex)
 
 if matches.any?
   puts "#{matches.size}"
+  puts matches.join(", ")
 else
   puts ""
 end
