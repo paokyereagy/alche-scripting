@@ -1,24 +1,20 @@
 #!/usr/bin/env ruby
 
-# Join all command-line arguments into one string to handle cases 
-# where quotes might be missing or broken by the shell
+# 1. Join all arguments to ensure the full string is captured
 log_entry = ARGV.join(' ')
 
-# Regex to capture content from [from:], [to:], and [flags:]
-# We use \d to match digits, and [^\]]+ to match any character except a closing bracket
-regex = /\[from:(.*?)\] \[to:(.*?)\] \[flags:(.*?)\]/
+# 2. Use a more flexible regex
+# \[from:([^\]]+)\]  : Matches [from: followed by everything except ']'
+# \s*                : Allows for any amount of spaces
+# \[to:([^\]]+)\]    : Matches [to:
+# \s*                : Allows for any amount of spaces
+# \[flags:([^\]]+)\] : Matches [flags:
+regex = /\[from:([^\]]+)\]\s*\[to:([^\]]+)\]\s*\[flags:([^\]]+)\]/
 
-# Match the regex against the log entry
-match_data = log_entry.match(regex)
-
-if match_data
-  sender = match_data[1]
-  receiver = match_data[2]
-  flags = match_data[3]
-
-  # Output in the exact format required: [SENDER],[RECEIVER],[FLAGS]
-  puts "#{sender},#{receiver},#{flags}"
+# 3. Match and output
+if (match = log_entry.match(regex))
+  puts "#{match[1]},#{match[2]},#{match[3]}"
 else
-  # Debugging help: print what the script actually received if no match is found
-  # puts "No match found in input: #{log_entry}"
+  # Print to STDERR so you know why it's failing
+  $stderr.puts "Debug: Regex failed to match input: #{log_entry}"
 end
