@@ -10,7 +10,7 @@ end
 regex = /^hbt+n$/
 
 if input.match?(regex)
-  puts " #{input}"
+  puts "#{input}"
 else
   puts ""
 end
