@@ -3,7 +3,7 @@ input = ARGV[0].to_s
 match = input.scan(/School/).join
 
 if match.empty?
-  puts "No match."
+  puts ""
 else
   puts "#{match}"
 end
