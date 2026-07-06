@@ -12,4 +12,3 @@ result = matches.join
 
 # Output the result and length
 puts result
-puts "#{result.}"
