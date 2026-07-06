@@ -6,10 +6,12 @@ if input.nil?
   exit
 end
 
-regex = /t{2,5}/
+# Regex: ^hbt{2,5}n$ ensures the structure is exact
+regex = /^hbt{2,5}n$/
 
-if input =~ regex
-  puts "Match found!"
+if input.match?(regex)
+  puts "#{input}"
+  puts " #{input.length} "
 else
-  puts "No match found."
+  puts " #{input}"
 end
