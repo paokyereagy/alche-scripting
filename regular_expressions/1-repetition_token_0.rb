@@ -11,7 +11,6 @@ regex = /^hbt{2,5}n$/
 
 if input.match?(regex)
   puts "#{input}"
-  puts " #{input.length} "
 else
   puts " #{input}"
 end
