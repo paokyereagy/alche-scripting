@@ -1,18 +1,15 @@
 #!/usr/bin/env ruby
-input = ARGV.join(" ")
 
-if input.empty?
-  puts "Usage: ruby script.rb <string with words>"
-  exit
-end
+# The input string
+input = "i Hope Bobby eaTs Nutella - no one ever said"
 
-regex = /\b[A-Z]+\b/
+# Scan for sequences of 1 or more uppercase letters
+# We use [A-Z]+ to find groups like 'H', 'B', 'T', 'N'
+matches = input.scan(/[A-Z]+/)
 
-matches = input.scan(regex)
+# Join the found matches into one string (H + B + T + N)
+result = matches.join
 
-if matches.any?
-  puts "#{matches.size}"
-  puts matches.join(", ")
-else
-  puts ""
-end
+# Output the result and length
+puts result
+puts "(#{result.length} chars long)"
