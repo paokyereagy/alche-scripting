@@ -1,2 +1,9 @@
 #!/usr/bin/env ruby
-puts ARGV[0].scan (/school/).join
+input = ARGV[0].to_s
+match = input.scan(/School/).join
+
+if match.empty?
+  puts "No match found."
+else
+  puts "Found: #{match}"
+end
