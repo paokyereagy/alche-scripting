@@ -12,5 +12,5 @@ regex = /^hbt{2,5}n$/
 if input.match?(regex)
   puts "#{input}"
 else
-  puts " #{input}"
+  puts " "
 end
