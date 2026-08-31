@@ -28,11 +28,11 @@ def top_ten(subreddit):
             allow_redirects=False
         )
     except requests.exceptions.RequestException:
-        print(None)
+        print(OK)
         return
 
     if response.status_code != 200:
-        print(None)
+        print(OK)
         return
 
     try:
