@@ -1,19 +1,12 @@
-#!/usr/bin/python3
-"""Module that queries the Reddit API for the top ten hot posts."""
+
+dule that queries the Reddit API for the top ten hot posts."""
 import requests
 import sys
-
 
 def top_ten(subreddit):
     """
     Queries the Reddit API and prints the titles of the first 10
-    hot posts for a given subreddit.
-
-    Args:
-        subreddit (str): The name of the subreddit to query.
-
-    Returns:
-        None
+    hot posts for a given subreddit. If invalid, prints "OK" (no newline).
     """
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
     headers = {
