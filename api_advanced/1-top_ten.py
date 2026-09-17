@@ -1,41 +1,36 @@
-
-dule that queries the Reddit API for the top ten hot posts."""
 import requests
-import sys
+
 
 def top_ten(subreddit):
-    """
-    Queries the Reddit API and prints the titles of the first 10
-    hot posts for a given subreddit. If invalid, prints "OK" (no newline).
-    """
-    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    headers = {
-        "User-Agent": "python:top.ten.posts:v1.0 (by /u/hbtn_student)"
-    }
-    params = {"limit": 10}
+  """Queries the Reddit API and prints the titles of the
 
-    try:
-        response = requests.get(
-            url,
-            headers=headers,
-            params=params,
-            allow_redirects=False
-        )
-    except requests.exceptions.RequestException:
-        sys.stdout.write("OK")
-        return
+  first 10 hot posts listed for a given subreddit.
+  Prints 'OK' if the subreddit is invalid.
+  """
+  url = f"https://www.reddit.com/r/{subreddit}/hot.json"
 
+  # Reddit API requires a custom User-Agent to avoid 429/403 errors
+  headers = {"User-Agent": "python:subreddit.counter:v1.0 (by /u/your_username)"}
+
+  try:
+    # Disable redirects to catch invalid subreddits that redirect to search
+    response = requests.get(url, headers=headers, allow_redirects=False)
+
+    # If the status code is not 200 (e.g., 302 redirect, 404 not found, etc.)
     if response.status_code != 200:
-        sys.stdout.write("OK")
-        return
+      print("OK")
+      return
 
-    try:
-        data = response.json()
-        posts = data.get("data", {}).get("children", [])
-        if not posts:
-            sys.stdout.write("OK")
-            return
-        for post in posts:
-            print(post.get("data", {}).get("title"))
-    except ValueError:
-        sys.stdout.write("OK")
+    data = response.json()
+    posts = data.get("data", {}).get("children", [])
+
+    if not posts:
+      print("OK")
+      return
+
+    # Print the titles of the first 10 hot posts
+    for i in range(min(10, len(posts))):
+      print(posts[i]["data"]["title"])
+
+  except Exception:
+    print("OK")
