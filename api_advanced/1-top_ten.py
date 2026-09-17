@@ -1,3 +1,8 @@
+#!/usr/bin/python3
+"""
+Module to query the Reddit API and print top hot posts.
+"""
+
 import requests
 
 
